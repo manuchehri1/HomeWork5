@@ -20,7 +20,7 @@ import utilities.Driver;
  * elements from that menu
  */
 public abstract class AbstractPageBase {
-    protected WebDriver driver = Driver.getDriver();
+    private     WebDriver driver = Driver.getDriver();
     protected WebDriverWait wait = new WebDriverWait(driver, 25);
 
     @FindBy(css = "#user-menu > a")
@@ -61,5 +61,6 @@ public abstract class AbstractPageBase {
 
         //increase this wait rime if still failing
         BrowserUtils.wait(4);
+
     }
 }

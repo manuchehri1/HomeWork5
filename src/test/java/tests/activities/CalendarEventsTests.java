@@ -5,24 +5,22 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.LoginPage;
+import org.testng.asserts.SoftAssert;
+
 import pages.activities.CalendarEventsPage;
 import tests.AbstractTestBase;
 import utilities.BrowserUtils;
 import utilities.Driver;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CalendarEventsTests extends AbstractTestBase {
-    WebDriver driver = Driver.getDriver();
-    CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+    public WebDriver driver = Driver.getDriver();
+
+    SoftAssert sa= new SoftAssert();
+
 
 
     /**
@@ -37,12 +35,15 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test1(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+        test = report.createTest("Verify that “view”, “edit” and “delete” options");
 
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.hoverOverTreeDots();
         Assert.assertTrue(calendarEventsPage.view.isDisplayed());
         Assert.assertTrue(calendarEventsPage.edit.isDisplayed());
         Assert.assertTrue(calendarEventsPage.delete.isDisplayed());
+        test.pass("view, edit and delete verified");
 
     }
 
@@ -57,6 +58,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test2(){
+         WebDriver driver = Driver.getDriver();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+        test = report.createTest("Verify that “Title” column still displayed");
+
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.gridIcon.click();
         List<WebElement>  gridOptions = driver.findElements(By.xpath("//input[@data-role='renderable']"));
@@ -67,6 +72,7 @@ public class CalendarEventsTests extends AbstractTestBase {
         System.out.println(gridOptions.size());
         BrowserUtils.wait(3);
         Assert.assertTrue(calendarEventsPage.titleColumn.isDisplayed());
+        test.pass("Title column verified");
     }
 
     /**
@@ -82,6 +88,10 @@ public class CalendarEventsTests extends AbstractTestBase {
 
     @Test
     public void test3(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+        test = report.createTest("Verify that “Save And Close”, “Save And New  and “Save” ");
+
+
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.saveAndCloseDropDown.click();
@@ -90,6 +100,7 @@ public class CalendarEventsTests extends AbstractTestBase {
         Assert.assertEquals(calendarEventsPage.saveAndNews2.getText().trim(),"Save And New");
         Assert.assertEquals(calendarEventsPage.save3.getText().trim(),"Save");
 
+        test.pass("“Save And Close”, “Save And New  and “Save” verified");
     }
 
     /**
@@ -103,8 +114,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * displayed
      */
 
+
     @Test
     public void test4(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.cancelButton.click();
@@ -121,8 +134,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * 5. Verify that difference between end and start time
      * is exactly 1 hour
      */
+
     @Test
     public void test5(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         Assert.assertTrue(calendarEventsPage.timeDiff()==1);
@@ -140,6 +155,8 @@ public class CalendarEventsTests extends AbstractTestBase {
 
     @Test
     public void test6(){
+        WebDriver driver = Driver.getDriver();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.startTime.click();
@@ -163,8 +180,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * 8. Verify that start and end date input boxes are
      * displayed
      */
+
     @Test
     public void test7() {
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.allDayCheckBox.click();
@@ -188,8 +207,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * following options are available in
      * “Repeats” drop-down:
      */
+
     @Test
     public void test8(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
@@ -223,8 +244,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * 9. Verify that following message as a summary is
      * displayed: “Summary: Daily every 1 day”
      */
+
     @Test
     public void test9(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
@@ -251,20 +274,27 @@ public class CalendarEventsTests extends AbstractTestBase {
      * displayed: “Summary: Daily every 1 day, end
      * after 10 occurrences”
      */
+
     @Test
     public void test10(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+        test = report.createTest("Verify Summary: Daily every 1 day, end after 10 occurrences");
+
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
 
         calendarEventsPage.endsAfter.click();
         calendarEventsPage.afterOccurrences.sendKeys("10",Keys.ENTER);
-        BrowserUtils.wait(2);
+
         String expected ="Summary: Daily every 1 day, end after 10 occurrences";
         String actual = calendarEventsPage.summary.getText()+
                 " "+calendarEventsPage.summary1.getText()+
                         calendarEventsPage.summary2.getText();
         Assert.assertEquals(actual,expected);
+
+        test.pass("Verified");
     }
 
 
@@ -281,8 +311,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * Nov 18, 2021”
      */
 
+
     @Test
     public void test11(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
@@ -320,8 +352,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      * displayed: “Summary: Weekly every 1 week on
      * Monday, Friday”
      */
+
     @Test
     public void test12(){
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();

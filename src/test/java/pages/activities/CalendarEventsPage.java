@@ -2,6 +2,7 @@ package pages.activities;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
@@ -15,6 +16,7 @@ import utilities.Driver;
 import java.util.List;
 
 public class CalendarEventsPage extends AbstractPageBase {
+    public WebDriver driver = Driver.getDriver();
 
 
     @FindBy(css = "[title='Create Calendar event']")
@@ -196,7 +198,7 @@ public class CalendarEventsPage extends AbstractPageBase {
 
     @FindBy(xpath = "(//input[@type=\"radio\"])[5]")
     public WebElement byDatePicker;
-    @FindBy(className = "datepicker-input hasDatepicker")
+    @FindBy(xpath = "//*[@class='datepicker-input hasDatepicker']")
     public WebElement datePicker;
     @FindBy(className = "ui-datepicker-month")
     public WebElement datePickerMonth;
@@ -214,12 +216,12 @@ public class CalendarEventsPage extends AbstractPageBase {
     public WebElement weekDayCheckBox(String firstLetterOfDay){
         return Driver.getDriver().findElement(By.xpath("//span[text()='"+firstLetterOfDay+"']"));
     }
-
+    @FindBy(xpath = "//td[text()='Testers Meeting']//following-sibling::td//a[text()='...']")
+    public WebElement  treeDots;
     public void hoverOverTreeDots(){
 
         Actions actions = new Actions(driver);
         BrowserUtils.wait(3);
-        WebElement treeDots= driver.findElement(By.xpath("//td[text()='Testers Meeting']//following-sibling::td//a[text()='...']"));
         actions.moveToElement(treeDots).
                 pause(2000).perform();
 
