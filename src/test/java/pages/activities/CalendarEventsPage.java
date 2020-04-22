@@ -127,11 +127,11 @@ public class CalendarEventsPage extends AbstractPageBase {
     }
 
 
-    @FindBy(xpath ="//*[@href='/calendar/event/view/1846']")
+    @FindBy(xpath ="(//ul[@class=\"nav nav-pills icons-holder launchers-list\"])[1]//li//a[@title=\"View\"]")
     public WebElement view;
-    @FindBy(xpath = "//*[@href='/calendar/event/update/1846']")
+    @FindBy(xpath = "(//ul[@class=\"nav nav-pills icons-holder launchers-list\"])[1]//li//a[@title=\"Edit\"]")
     public WebElement edit;
-    @FindBy(xpath = "//*[@href='#']")
+    @FindBy(xpath = "(//ul[@class=\"nav nav-pills icons-holder launchers-list\"])[1]//li//a[@title=\"Delete\"]")
     public WebElement delete;
 
 
@@ -217,8 +217,20 @@ public class CalendarEventsPage extends AbstractPageBase {
         return Driver.getDriver().findElement(By.xpath("//span[text()='"+firstLetterOfDay+"']"));
     }
     @FindBy(xpath = "//td[text()='Testers Meeting']//following-sibling::td//a[text()='...']")
-    public WebElement  treeDots;
+    public WebElement treeDots;
     public void hoverOverTreeDots(){
+        WebDriver driver = Driver.getDriver();
+
+        while (true){
+
+            if (treeDots.isEnabled()){
+                break;
+            }else {
+                driver.findElement(By.xpath("(//ul[@class=\"icons-holder\"]//li//a)[2]")).click();
+                BrowserUtils.wait(3);
+            }
+        }
+     //   WebElement  treeDots=driver.findElement(By.xpath("//td[text()='edede']//following-sibling::td//a[text()='...']"));
 
         Actions actions = new Actions(driver);
         BrowserUtils.wait(3);

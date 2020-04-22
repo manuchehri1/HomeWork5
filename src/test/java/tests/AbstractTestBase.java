@@ -19,7 +19,7 @@ public abstract class AbstractTestBase {
     //will be visible in the subclass, regardless on subclass location (same package or no)
     protected WebDriverWait wait;
     protected Actions actions;
-    LoginPage loginPage;
+
 
     protected ExtentReports report;
     protected ExtentHtmlReporter htmlReporter;
@@ -62,8 +62,9 @@ public abstract class AbstractTestBase {
         Driver.getDriver().manage().window().maximize();
         wait = new WebDriverWait(Driver.getDriver(), 25);
         actions = new Actions(Driver.getDriver());
-        loginPage=new LoginPage();
+        LoginPage loginPage=new LoginPage();
         loginPage.login();
+
     }
 
 

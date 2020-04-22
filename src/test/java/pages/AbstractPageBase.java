@@ -61,6 +61,12 @@ public abstract class AbstractPageBase {
 
         //increase this wait rime if still failing
         BrowserUtils.wait(4);
+        waitForLoaderMask();
+
+
+    }
+    public void waitForLoaderMask(){
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//div[@class=\"loader-mask\"]//div)[1]")));
 
     }
 }

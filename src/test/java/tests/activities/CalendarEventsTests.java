@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import pages.LoginPage;
 import pages.activities.CalendarEventsPage;
 import tests.AbstractTestBase;
 import utilities.BrowserUtils;
@@ -19,7 +20,8 @@ import java.util.List;
 public class CalendarEventsTests extends AbstractTestBase {
     public WebDriver driver = Driver.getDriver();
 
-    SoftAssert sa= new SoftAssert();
+
+
 
 
 
@@ -36,13 +38,16 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test1(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
+
+
         test = report.createTest("Verify that “view”, “edit” and “delete” options");
 
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.hoverOverTreeDots();
         Assert.assertTrue(calendarEventsPage.view.isDisplayed());
-        Assert.assertTrue(calendarEventsPage.edit.isDisplayed());
-        Assert.assertTrue(calendarEventsPage.delete.isDisplayed());
+       Assert.assertTrue(calendarEventsPage.edit.isDisplayed());
+       Assert.assertTrue(calendarEventsPage.delete.isDisplayed());
         test.pass("view, edit and delete verified");
 
     }
@@ -58,11 +63,13 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test2(){
-         WebDriver driver = Driver.getDriver();
+        WebDriver driver = Driver.getDriver();
+
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         test = report.createTest("Verify that “Title” column still displayed");
 
         calendarEventsPage.navigateTo("Activities","Calendar Events");
+
         calendarEventsPage.gridIcon.click();
         List<WebElement>  gridOptions = driver.findElements(By.xpath("//input[@data-role='renderable']"));
         for (int i = 1; i < gridOptions.size(); i++) {
@@ -88,12 +95,14 @@ public class CalendarEventsTests extends AbstractTestBase {
 
     @Test
     public void test3(){
+
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         test = report.createTest("Verify that “Save And Close”, “Save And New  and “Save” ");
 
 
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
+
         calendarEventsPage.saveAndCloseDropDown.click();
 
         Assert.assertEquals(calendarEventsPage.saveAndClose1.getText().trim(),"Save And Close");
@@ -118,6 +127,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test4(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.cancelButton.click();
@@ -138,6 +148,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test5(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         Assert.assertTrue(calendarEventsPage.timeDiff()==1);
@@ -157,6 +168,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     public void test6(){
         WebDriver driver = Driver.getDriver();
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities","Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.startTime.click();
@@ -184,6 +196,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test7() {
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.allDayCheckBox.click();
@@ -211,6 +224,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test8(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
@@ -248,6 +262,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test9(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
@@ -278,6 +293,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test10(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         test = report.createTest("Verify Summary: Daily every 1 day, end after 10 occurrences");
 
 
@@ -315,6 +331,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test11(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
@@ -356,6 +373,7 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test12(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckBox.click();
